@@ -1,4 +1,3 @@
-# backend/main.py
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
@@ -9,23 +8,19 @@ from datetime import datetime, timedelta
 
 app = FastAPI()
 
-# CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # React dev servers
+    allow_origins=["http://localhost:3000", "http://localhost:5173"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Secret key for JWT (change this in production!)
-SECRET_KEY = "your-secret-key-change-this-in-production"
+SECRET_KEY = "secret-key"
 ALGORITHM = "HS256"
 
-# In-memory database (use a real database in production)
 users_db = {}
 
-# Pydantic models
 class UserSignup(BaseModel):
     name: str
     email: EmailStr
@@ -39,7 +34,6 @@ class Token(BaseModel):
     token: str
     user: dict
 
-# Helper functions
 def hash_password(password: str) -> str:
     """Hash password using bcrypt"""
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -56,7 +50,6 @@ def create_token(email: str) -> str:
     }
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
-# Routes
 @app.get("/")
 def read_root():
     return {"message": "Auth API is running"}
@@ -65,11 +58,9 @@ def read_root():
 def signup(user: UserSignup):
     """Create new user account"""
     
-    # Check if user already exists
     if user.email in users_db:
         raise HTTPException(status_code=400, detail="Email already registered")
     
-    # Hash password and store user
     hashed_pw = hash_password(user.password)
     users_db[user.email] = {
         "name": user.name,
@@ -77,7 +68,6 @@ def signup(user: UserSignup):
         "password": hashed_pw
     }
     
-    # Create token
     token = create_token(user.email)
     
     return {
@@ -92,7 +82,6 @@ def signup(user: UserSignup):
 def login(credentials: UserLogin):
     """Login user"""
     
-    # Check if user exists
     if credentials.email not in users_db:
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
@@ -102,7 +91,6 @@ def login(credentials: UserLogin):
     if not verify_password(credentials.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
-    # Create token
     token = create_token(credentials.email)
     
     return {
