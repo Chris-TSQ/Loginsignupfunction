@@ -11,7 +11,7 @@ from routes import AuthAPI
 def create_app() -> FastAPI:
     """Create and configure FastAPI application"""
     app = FastAPI(title="Auth API", version="1.0.0")
-    
+        
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.ALLOWED_ORIGINS,
