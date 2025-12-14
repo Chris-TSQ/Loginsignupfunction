@@ -10,7 +10,13 @@ let state = {
   token: null,
 };
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+fetch(`${API_URL}/signup`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(userData)
+})
 
 const authForm = document.getElementById("authForm");
 const welcomeScreen = document.getElementById("welcomeScreen");
