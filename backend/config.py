@@ -10,13 +10,13 @@ class Settings:
     ALGORITHM: str = "HS256"
     TOKEN_EXPIRY_HOURS: int = 24
     
-    ALLOWED_ORIGINS: List[str] = [*,
+    ALLOWED_ORIGINS: List[str] = [
         "http://localhost:8080",
-    "http://localhost:3000",           # Local development
-    "http://localhost:5173",           # Vite dev server
-    "https://loginsignupfunction-6gsd.vercel.app",     # Vercel domain (for deploy)
-    "https://*.vercel.app",            # All Vercel preview deployments
-]    
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://loginsignupfunction-6gsd.vercel.app",
+        "https://loginsignupfunction-xli2.vercel.app",  # Add your other Vercel domain
+    ]
     
     HOST: str = "0.0.0.0"
     PORT: int = 8000
