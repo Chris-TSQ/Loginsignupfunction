@@ -10,13 +10,12 @@ let state = {
   token: null,
 };
 
+// For Create React App
 const API_URL = process.env.REACT_APP_API_URL;
 
-fetch(`${API_URL}/signup`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(userData)
-})
+// For Vite
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const authForm = document.getElementById("authForm");
 const welcomeScreen = document.getElementById("welcomeScreen");
