@@ -14,8 +14,8 @@ class Settings:
         "http://localhost:8080",
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://loginsignupfunction-6gsd.vercel.app",
-        "https://loginsignupfunction-xli2.vercel.app",  # Add your other Vercel domain
+        "https://loginsignupfunction.vercel.app",
+        "https://loginsignupfunction-xli2.vercel.app",  # Add other Vercel domain
     ]
     
     HOST: str = "0.0.0.0"
