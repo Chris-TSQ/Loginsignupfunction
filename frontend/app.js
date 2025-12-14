@@ -1,3 +1,11 @@
+// Fixed script.js - Single API_URL definition
+const API_URL =
+  import.meta.env?.VITE_API_URL ||
+  window.ENV?.REACT_APP_API_URL ||
+  "http://localhost:8000";
+
+
+  
 let state = {
   isLogin: true,
   formData: {
@@ -9,13 +17,6 @@ let state = {
   loading: false,
   token: null,
 };
-
-// For Create React App
-const API_URL = process.env.REACT_APP_API_URL;
-
-// For Vite
-const API_URL = import.meta.env.VITE_API_URL;
-
 
 const authForm = document.getElementById("authForm");
 const welcomeScreen = document.getElementById("welcomeScreen");
@@ -111,6 +112,8 @@ async function handleSubmit(e) {
       ? { email: state.formData.email, password: state.formData.password }
       : state.formData;
 
+    console.log(`Attempting to connect to: ${API_URL}${endpoint}`);
+
     const response = await fetch(`${API_URL}${endpoint}`, {
       method: "POST",
       headers: {
@@ -140,8 +143,9 @@ async function handleSubmit(e) {
       showMessage(data.detail || "An error occurred", "error");
     }
   } catch (error) {
+    console.error("Connection error:", error);
     showMessage(
-      "Failed to connect to server. Make sure backend is running.",
+      `Failed to connect to server at ${API_URL}. Make sure backend is running.`,
       "error"
     );
   } finally {
@@ -183,3 +187,6 @@ function handleLogout() {
 
   showMessage("Logged out successfully", "success");
 }
+
+// Log API URL on page load for debugging
+console.log("API URL configured as:", API_URL);
