@@ -6,17 +6,17 @@ load_dotenv()
 
 class Settings:
     # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-this")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "nsarbmfrpdvualvmtwzspspsinhqbvdr")
     ALGORITHM: str = "HS256"
     TOKEN_EXPIRY_HOURS: int = 24
     
     # MongoDB
     MONGODB_URL: str = os.getenv("MONGODB_URL", "")
     
-    # CORS - Update with your Vercel domain
+    # CORS with Vercel domain
     ALLOWED_ORIGINS: List[str] = os.getenv(
         "ALLOWED_ORIGINS",
-        "http://localhost:5173,http://localhost:3000,https://your-app.vercel.app"
+        "http://localhost:5173,http://localhost:3000,https://loginsignupfuncti.vercel.app"
     ).split(",")
     
     # Server
